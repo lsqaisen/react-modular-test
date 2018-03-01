@@ -10,37 +10,27 @@ const delay = (timeout) => {
 
 const User = dynamic({
     component: async () => {
-        while (!window.UserComps) await delay(1);
-        return window.UserComps || IndexPage;
+        while (!window.User) await delay(1);
+        return window.User || IndexPage;
     },
 });
 
 const Stack = dynamic({
     component: async () => {
-        while (!window.StackComps) await delay(1);
-        return window.StackComps || IndexPage;
+        while (!window.Stack) await delay(1);
+        return window.Stack || IndexPage;
     },
 });
 
 const App = (props) => {
-    console.log(11112)
     return (
         <div>
             <Link to="/user">xxxsadfasd</Link>
             <Link to="/stack">sdfgsfg</Link>
             <Switch>
-                <Route path="/user" children={({ match }) => {
-                    console.log(match)
-                    return (
-                        <User />
-                    )
-                }} />
-                <Route path="/stack" children={({ match }) => {
-                    console.log(match)
-                    return (
-                        <Stack />
-                    )
-                }} />
+                <Route path="/user" children={() => <User />} />
+                <Route path="/stack" children={() => <Stack />} />
+                <Redirect to="/user" />
             </Switch>
         </div>
     )
